@@ -1,0 +1,1 @@
+http://charlesleifer.com/blog/suggesting-tags-django-taggit-and-jquery-ui/

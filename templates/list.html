@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block "content" %}
+    <h1>Right now, this is happening:</h1>
+    <ul>
+    {% for article in article_list %}
+        <li>
+            <h2><a href="{{ article.source_url }}">{{ article.title }}</a></h2>
+            <p>
+                {{ article.summary|safe }}
+            </p>
+            <p>
+                From: {{ article.source.title }}
+            </p>
+            <p>
+                Published: {{ article.date_published }}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock "content" %}
