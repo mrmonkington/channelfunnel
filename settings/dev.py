@@ -1,3 +1,4 @@
 from defaults import *
 
-DEBUG=True
+#DEBUG=True
+#MEDIA_DEV_MODE = DEBUG

@@ -1,10 +1,8 @@
-# Django settings for commissioner project.
-
 import os
 # get project root, not settings folder root!
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -42,18 +40,18 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/home/mark/Work/eurofunnel/var/www/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/home/mark/Work/eurofunnel/var/www/static/eurofunnel/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -90,6 +88,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'mediagenerator.middleware.MediaMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -97,12 +96,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'commissioner.urls'
+ROOT_URLCONF = 'eurofunnel.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -111,13 +111,33 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    #'django.contrib.staticfiles',
+    'mediagenerator',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'taggit',
     'content',
 )
+
+MEDIA_DEV_MODE = True
+DEV_MEDIA_URL = '/devstatic/'
+PRODUCTION_MEDIA_URL = '/prodstatic/'
+
+MEDIA_BUNDLES = (
+    ('eurofunnel.css',
+        'styles/eurofunnel.sass',
+        'styles/jquery-ui-1.8.16.custom.css',
+    ),
+    ('eurofunnel.js',
+        'scripts/jquery-1.7.min.js',
+        'scripts/jquery-ui-1.8.16.custom.js',
+        'scripts/eurofunnel.js',
+    ),
+)
+
+GLOBAL_MEDIA_DIRS = ( os.path.join(SITE_ROOT, 'static' ), )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
