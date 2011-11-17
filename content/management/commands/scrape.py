@@ -8,12 +8,24 @@ from content.models import Source, Article
 import feedparser
 from datetime import datetime
 
+from ngram import NGram
+
 class Command( BaseCommand ):
 
     def handle( self, *args, **options ):
+        # create a similarity corpus of last 200 docs
+        n = NGram()
+        articles = Article.objects.filter( status = "live" ).order_by( "-date_published" )[:200]
+        for article in articles:
+            n.add( article.title )
+
         for source in Source.objects.filter( scraper = 'feedparser', status__in = ( 'silent', 'live' ) ):
             l = feedparser.parse( source.scraper_config )
-            if l[ "bozo" ] == 0 :
+            ok = True
+            if l[ "bozo" ] == 1:
+               if not isinstance( l[ "bozo_exception" ], feedparser.ThingsNobodyCaresAboutButMe ):
+                   ok = False
+            if ok:
                 for article in l[ "entries" ]:
                     print "Reading feed entry %s: '%s'" % ( article[ "id" ], article[ "title" ] )
                     a, created = Article.objects.get_or_create(
@@ -33,6 +45,10 @@ class Command( BaseCommand ):
                     )
                     if created:
                         print "Creating new article."
+                        print "Similarity"
+                        sim = n.search( a.title )
+                        print sim
+                        n.add( a.title )
                     else:
                         print "Updating article."
                     if article.has_key( "content" ):
@@ -42,8 +58,12 @@ class Command( BaseCommand ):
                     for tag in article.get( "tags", () ):
                         a.tags.add( tag[ "term" ] )
                     a.save()
+
             else:
                 logging.error( "Could not read feed for file '%s': %s" % ( source.scraper_config, l[ "bozo_exception" ] ) ) 
                 logging.error( "Skipping '%s': %s" % ( source.scraper_config, l[ "bozo_exception" ] ) ) 
                 break
+        #calculate similarities
+
+
 
