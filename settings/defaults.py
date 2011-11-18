@@ -13,9 +13,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(SITE_ROOT, 'eurofunnel.sqlite'),
-        'USER': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'NAME': os.path.join(SITE_ROOT, 'eurofunnel.sqlite'),
+        'NAME': 'eurofunnel',
+        'USER': 'mark',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
@@ -133,7 +134,9 @@ MEDIA_BUNDLES = (
     ('eurofunnel.js',
         'scripts/jquery-1.7.min.js',
         'scripts/jquery-ui-1.8.16.custom.js',
+        'scripts/jquery.masonry.min.js',
         'scripts/eurofunnel.js',
+        'scripts/jquery.infinitescroll.js',
     ),
 )
 
@@ -159,3 +162,5 @@ GLOBAL_MEDIA_DIRS = ( os.path.join(SITE_ROOT, 'static' ), )
 #        }
 #    }
 #}
+
+PAGE_SIZE = 20

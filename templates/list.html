@@ -1,21 +1,31 @@
-{% extends "base.html" %}
-
-{% block "content" %}
-    <h1>Right now, this is happening:</h1>
-    <ul>
+{% block "list" %}
     {% for article in article_list %}
-        <li>
+        <li class="master {% if article.duplicates.all %}multi{% endif %}">
             <h2><a href="{{ article.source_url }}">{{ article.title }}</a></h2>
-            <p>
-                {{ article.summary|safe }}
-            </p>
-            <p>
-                From: {{ article.source.title }}
-            </p>
-            <p>
-                Published: {{ article.date_published }}
-            </p>
+            <div class="wrap">
+                <div class="summary">
+                    {{ article.summary|safe|striptags|truncatewords:60|linebreaks }}
+                </div>
+                <cite>
+                    <strong>{{ article.source.title }}</strong>
+                    <br />
+                    <span class="date">{{ article.date_published }}</span>
+                </cite>
+                {% if article.duplicates.all %}
+                    <ul>
+                    {% for dup in article.duplicates.all %}
+                        <li>
+                            <div class="wrap">
+                                <h4><a href="{{ dup.source_url }}">{{ dup.title }}</a></h4>
+                                <p>
+                                    From: {{ dup.source.title }}
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
         </li>
     {% endfor %}
-    </ul>
-{% endblock "content" %}
+{% endblock %}

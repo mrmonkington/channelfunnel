@@ -20,6 +20,9 @@ class Source( models.Model ):
         ( "live", "Live - what is says on the tin" ),
     ) )
 
+    def __unicode__( self ):
+        return "%s - %s" % ( self.scraper, self.title, )
+
 class ScrapeLog( models.Model ):
     source = models.ForeignKey( Source )
     when_run = models.DateTimeField()
@@ -34,11 +37,11 @@ class Article( models.Model ):
         ( "live", "Live" ),
     ) )
     is_duplicate = models.BooleanField( default = False, null = False )
-    duplicate_of = models.ForeignKey( "Article", blank = True, null = True )
+    duplicate_of = models.ForeignKey( "Article", blank = True, null = True, related_name = "duplicates" )
     date_created = models.DateTimeField( blank = False )
 
     # unique ID as defined by source - for updates
-    source_reference = models.CharField( max_length = 50, unique = True, blank = False )
+    source_reference = models.CharField( max_length = 250, unique = True, blank = False )
     source_url = models.CharField( max_length = 250, blank = True, null = True )
     title = models.TextField( blank = False )
     num_comments = models.IntegerField()
@@ -48,3 +51,6 @@ class Article( models.Model ):
     author = models.TextField( blank = True )
     date_published = models.DateTimeField( blank = True )
     tags = TaggableManager()
+
+    def __unicode__( self ):
+        return "%s" % ( self.title, )

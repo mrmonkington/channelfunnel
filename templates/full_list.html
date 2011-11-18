@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block "content" %}
+    <div class="articles">
+        <ul>
+        {% include "list.html" %}
+        </ul>
+    </div>
+    <script>
+    /*$('.articles ul').masonry({
+        itemSelector: 'li.master',
+        columnWidth: 316,
+        isAnimated: true
+    });*/
+    $(window).infinitescroll({
+        url: window.location.href,
+        triggerAt: 150,
+        appendTo: '.articles>ul',
+        container: $('.articles>ul')
+    });
+    relateds = $('.articles ul li.master ul' );
+    </script>
+{% endblock "content" %}

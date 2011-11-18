@@ -1,0 +1,146 @@
+[
+    {
+        "pk": 1,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "eurogamer.net",
+            "description": "",
+            "title": "Eurogamer.net",
+            "scraper": "feedparser",
+            "scraper_config": "http://www.eurogamer.net/?format=rss"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "vg247",
+            "description": "",
+            "title": "VG247",
+            "scraper": "feedparser",
+            "scraper_config": "http://www.vg247.com/feed/"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "gamesindustry.biz",
+            "description": "",
+            "title": "Gamesindustry.biz",
+            "scraper": "feedparser",
+            "scraper_config": "http://www.gamesindustry.biz/rss/gamesindustry_news_feed.rss"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "twitter:vg247",
+            "description": "VG247 Twittter feed",
+            "title": "twitter.com/vg247",
+            "scraper": "twitter",
+            "scraper_config": "vg247"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "kotaku",
+            "description": "",
+            "title": "Kotaku",
+            "scraper": "feedparser",
+            "scraper_config": "http://kotaku.com/index.xml"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "ign",
+            "description": "",
+            "title": "IGN",
+            "scraper": "feedparser",
+            "scraper_config": "http://feeds.ign.com/ignfeeds/games/?format=xml"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "giantbomb",
+            "description": "",
+            "title": "GiantBomb",
+            "scraper": "feedparser",
+            "scraper_config": "http://www.giantbomb.com/feeds/mashup/"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "joystiq",
+            "description": "",
+            "title": "Joystiq",
+            "scraper": "feedparser",
+            "scraper_config": "http://www.joystiq.com/rss.xml"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "1up",
+            "description": "",
+            "title": "1up",
+            "scraper": "feedparser",
+            "scraper_config": "http://www.1up.com/rss/latestUpdates?event=&platform="
+        }
+    },
+    {
+        "pk": 10,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "videogamer",
+            "description": "",
+            "title": "Videogamer",
+            "scraper": "feedparser",
+            "scraper_config": "http://feeds.videogamer.com/rss/allupdates.xml"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "n4g",
+            "description": "",
+            "title": "N4G",
+            "scraper": "feedparser",
+            "scraper_config": "http://n4g.com/rss/news?channel=&sort=latest"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
+            "code": "siliconera",
+            "description": "",
+            "title": "Silicon Era",
+            "scraper": "feedparser",
+            "scraper_config": "http://feeds.feedburner.com/siliconera/MkOc?format=xml"
+        }
+    }
+]

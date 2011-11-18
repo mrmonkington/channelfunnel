@@ -7,11 +7,14 @@
         <meta name="description" content="A big, tapering pipe of videogame news, reviews, videos and screenshots." />
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         {% include_media "eurofunnel.css" %}
+        {% include_media "eurofunnel.js" %}
     </head>
     <body>
-        <h1>Eurofunnel</h1>
-        <p>A big, tapering pipe of videogame news, reviews, videos and screenshots.</p>
-        {% block "content" %}
-        {% endblock "content" %}
+        <div id="maincol">
+            <h1>Eurofunnel</h1>
+            <p class="strap">A big, tapering pipe of videogame news, reviews, videos and screenshots.</p>
+            {% block "content" %}
+            {% endblock "content" %}
+        </div>
     </body>
 </html>

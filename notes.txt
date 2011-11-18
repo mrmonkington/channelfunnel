@@ -1,1 +1,7 @@
 http://charlesleifer.com/blog/suggesting-tags-django-taggit-and-jquery-ui/
+http://xapian.org/
+http://code.google.com/p/djapian/
+http://code.google.com/p/djapian/wiki/Tutorial
+http://xapian.org/docs/bindings/python/
+http://code.google.com/p/python-ngram/
+

@@ -1,4 +1,130 @@
+//$eg_blue: #0069FF
+//$desaturated_eg_blue: #33a9FF
+
+$blue : rgb( 0, 104, 255 )
+
+$text : #666
+$light_grey : #e0e0e0
+$light_shadow : #f2f2f2
+$grey : #999
+$dark_grey: #666
+
+$pink : rgb( 255, 0, 126 )
+$orange : rgb( 255, 43, 0 )
+$yellow : rgb( 253, 255, 0 )
+$green : rgb( 83, 255, 0 )
+$blue_light : rgb( 101, 164, 255 )
+$pink_light : rgb( 255, 101, 177 )
+$orange_light : rgb( 255, 128, 101 )
+$yellow_light : rgb( 254, 255, 101 )
+$green_light : rgb( 152, 255, 101 )
+$blue_wash : rgb( 224, 228, 234 )
+$pink_wash : rgb( 234, 224, 229 )
+$orange_wash : rgb( 234, 226, 224 )
+$yellow_wash : rgb( 234, 234, 224 )
+$green_wash : rgb( 248, 248, 248 )
+$blue_shadow : rgb( 68, 75, 84 )
+$pink_shadow : rgb( 84, 68, 76 )
+$orange_shadow : rgb( 84, 71, 68 )
+$yellow_shadow : rgb( 84, 84, 68 )
+$green_shadow : rgb( 73, 84, 68 )
+
+$font : "Aurulent Sans", "Lucida Sans", "Lucida Grande", sans-serif
+
 body
-    font-family: "Lucida Sans", "Lucida Grande", sans-serif
-    font-size: 12px
-    color: #333
+    font-family: $font
+    font-size: 11px
+    line-height: 1.4em
+    color: $text
+    background-color: $light_grey
+    margin: 0px
+    padding: 0px
+
+#maincol
+    margin-left: 200px
+    margin-right: 340px
+    width: 450px - 20px * 2
+    padding: 0px 20px
+    padding-top: 20px
+    background-color: white
+
+h1, h2
+    font-family: $font
+    margin-bottom: 20px
+
+ul, li, p, h1, h2, h3, h4, cite
+    font-style: normal
+    list-style: none
+    display: block
+    margin: 0px
+    padding: 0px
+
+h1
+    font-size: 25px
+    margin-bottom: 10px
+.strap
+    font-size: 10px
+    margin-bottom: 20px
+
+h2
+    font-size: 18px
+    line-height: 1.3em
+
+h3
+    font-size: 11px
+
+h4
+    font-size: 11px
+
+a
+    text-decoration: none
+    &:link
+        color: $blue
+    &:visited
+        color: $blue_light
+    &:active
+        color: $blue
+    &:hover
+        color: $blue
+        text-decoration: underline
+
+.articles
+    ul
+        > li.master
+            margin: 14px 0px
+            margin-bottom: 28px
+            position: relative
+        > li.multi.master
+            > .wrap
+                position: relative
+            ul
+                position: absolute
+                left: 393px
+                top: -15px
+                width: 300px
+                li
+                    padding-left: 27px
+                    background: transparent url( 'img/related_arrow.png' ) top left no-repeat
+                    .wrap
+                        padding: 15px 20px
+                        background-color: $light_shadow
+                        box-shadow: 1px 2px 2px rgba( 0, 0, 0, 0.2 )
+                    margin-bottom: 10px
+
+        li
+            h2, .summary, cite
+            .summary
+                margin-top: 14px
+                p
+                    margin-bottom: 1em
+            cite
+                position: absolute
+                left: -160px
+                top: 4px
+                width: 140px
+                strong, span
+                strong
+                    font-size: 10px
+                span.date
+                    font-size: 10px
+
