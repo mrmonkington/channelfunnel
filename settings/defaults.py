@@ -2,19 +2,10 @@ import os
 # get project root, not settings folder root!
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    ('Mark Kennedy', 'mark@eurogamer.net'),
-)
-
-MANAGERS = ADMINS
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME': os.path.join(SITE_ROOT, 'eurofunnel.sqlite'),
+        #'NAME': os.path.join(SITE_ROOT, 'channelfunnel.sqlite'),
         'NAME': 'eurofunnel',
         'USER': 'mark',
         'PASSWORD': '',
@@ -41,18 +32,18 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/mark/Work/eurofunnel/var/www/media/'
+MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+MEDIA_URL = ''
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/mark/Work/eurofunnel/var/www/static/eurofunnel/'
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -78,8 +69,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '_swm&p9m^07^c&z6b_x9o71cuttp%)*4!nqplkgsm3q4(6s68e'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -97,7 +86,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'eurofunnel.urls'
+ROOT_URLCONF = 'channelfunnel.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -122,45 +111,24 @@ INSTALLED_APPS = (
     'content',
 )
 
-MEDIA_DEV_MODE = True
+MEDIA_DEV_MODE = False
 DEV_MEDIA_URL = '/devstatic/'
 PRODUCTION_MEDIA_URL = '/prodstatic/'
 
 MEDIA_BUNDLES = (
-    ('eurofunnel.css',
-        'styles/eurofunnel.sass',
+    ('channelfunnel.css',
+        'styles/channelfunnel.sass',
         'styles/jquery-ui-1.8.16.custom.css',
     ),
-    ('eurofunnel.js',
+    ('channelfunnel.js',
         'scripts/jquery-1.7.min.js',
         'scripts/jquery-ui-1.8.16.custom.js',
         'scripts/jquery.masonry.min.js',
-        'scripts/eurofunnel.js',
+        'scripts/channelfunnel.js',
         'scripts/jquery.infinitescroll.js',
     ),
 )
 
 GLOBAL_MEDIA_DIRS = ( os.path.join(SITE_ROOT, 'static' ), )
-
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-#LOGGING = {
-#    'version': 1,
-#    'disable_existing_loggers': False,
-#    'handlers': {
-#        'console': {
-#            'level': 'DEBUG',
-#            'class': 'logging.StreamHandler'
-#        }
-#    },
-#    'loggers': {
-#        'django': {
-#            'handlers':['console']
-#        }
-#    }
-#}
 
 PAGE_SIZE = 20
