@@ -19,8 +19,11 @@ import re
 class Command( BaseCommand ):
 
     def normalise( self, title ):
+        # remove GI prefix
         title = re.sub( "News:\s*", "", title )
         title = re.sub( "\s{2,}", " ", title )
+        # remove kotaku stupid tags
+        title = re.sub( r"\[[^\]]*\]", "", title, re.IGNORECASE )
         return title.strip()
 
     def handle( self, *args, **options ):
@@ -75,7 +78,10 @@ class Command( BaseCommand ):
 
         def enrich( obj ):
             s = unicode( obj )
+            # simple stop words
             s = re.sub( r"\b(the|of|in|a)\b", "", s, re.IGNORECASE )
+            # type prefixes
+            s = re.sub( r"^(trailer|review|report):\s*", "", s, re.IGNORECASE )
             return s
         n = NGram( warp=2.5, iconv=enrich )
         articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:(new_count*4)]

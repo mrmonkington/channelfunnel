@@ -2,6 +2,9 @@
 
 {% block "content" %}
     <div class="articles">
+        {% if filter_title %}
+            <h3 class="filter">{{ filter_title }} (<a href="{% url home %}">Show all</a>)</h3>
+        {% endif %}
         <ul>
         {% include "list.html" %}
         </ul>

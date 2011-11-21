@@ -4,7 +4,7 @@
 $blue : rgb( 0, 104, 255 )
 
 $text : #666
-$light_grey : #e0e0e0
+$light_grey : #e8e8e8
 $light_shadow : #f2f2f2
 $grey : #999
 $dark_grey: #666
@@ -12,12 +12,12 @@ $dark_grey: #666
 $pink : rgb( 255, 0, 126 )
 $orange : rgb( 255, 43, 0 )
 $yellow : rgb( 253, 255, 0 )
-$green : rgb( 83, 255, 0 )
+$green : rgb( 43, 128, 0 )
 $blue_light : rgb( 101, 164, 255 )
 $pink_light : rgb( 255, 101, 177 )
 $orange_light : rgb( 255, 128, 101 )
 $yellow_light : rgb( 254, 255, 101 )
-$green_light : rgb( 152, 255, 101 )
+$green_light : rgb( 83, 200, 3 )
 $blue_wash : rgb( 224, 228, 234 )
 $pink_wash : rgb( 234, 224, 229 )
 $orange_wash : rgb( 234, 226, 224 )
@@ -33,20 +33,26 @@ $font : "Aurulent Sans", "Lucida Sans", "Lucida Grande", sans-serif
 
 body
     font-family: $font
-    font-size: 11px
+    font-size: 12px
     line-height: 1.4em
     color: $text
     background-color: $light_grey
+    background: linear-gradient(top, #c6c6c6 0px,#e2e2e2 200px)
     margin: 0px
     padding: 0px
+    border-top: 6px solid $pink
 
 #maincol
     margin-left: 200px
     margin-right: 340px
     width: 450px - 20px * 2
     padding: 0px 20px
-    padding-top: 20px
+    padding-top: 60px
+    border-top: 6px solid $blue
+    position: relative
+    top: -6px
     background-color: white
+    box-shadow: 0px 0px 12px rgba( 0, 0, 0, 0.2 )
 
 h1, h2
     font-family: $font
@@ -94,37 +100,64 @@ a
             margin: 14px 0px
             margin-bottom: 28px
             position: relative
-        > li.multi.master
+            clear: both
             > .wrap
                 position: relative
+        > li.multi.master
             ul
-                position: absolute
-                left: 393px
-                top: -15px
-                width: 300px
+                //position: absolute
+                //left: 393px
+                //top: -15px
+                float: left
+                margin-bottom: 20px
                 li
-                    padding-left: 27px
-                    background: transparent url( 'img/related_arrow.png' ) top left no-repeat
-                    .wrap
-                        padding: 15px 20px
-                        background-color: $light_shadow
-                        box-shadow: 1px 2px 2px rgba( 0, 0, 0, 0.2 )
-                    margin-bottom: 10px
+                    width: 180px
+                    float: left
+                    margin-right: 10px
 
         li
             h2, .summary, cite
             .summary
+                font-size: 13px
+                line-height: 20px 
                 margin-top: 14px
                 p
                     margin-bottom: 1em
             cite
                 position: absolute
                 left: -160px
-                top: 4px
+                top: -45px
                 width: 140px
+                line-height: 14px 
                 strong, span
                 strong
-                    font-size: 10px
                 span.date
                     font-size: 10px
+                a
+                    font-weight: bold
+                    &:link
+                        color: $green
+                    &:visited
+                        color: $green_light
+                    &:active
+                        color: $green
+                    &:hover
+                        color: $green
+            .tags
+                position: absolute
+                left: 443px
+                top: 0px
+                width: 300px
+                line-height: 20px 
+                a
+                    &:link
+                        color: $pink
+                    &:visited
+                        color: $pink_light
+                    &:active
+                        color: $pink
+                    &:hover
+                        color: $pink
 
+h3.filter
+    font-size: 15px

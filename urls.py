@@ -4,6 +4,8 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+import content.views
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'eurofunnel.views.home', name='home'),
@@ -15,5 +17,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url( r'^$', 'content.views.home' ),
+    url( r'^click/(?P<article_id>[^/\^?]+)$', 'content.views.click', name='click' ),
+    url( r'^tag/(?P<tag>[^/\^?]+)$', 'content.views.filter_tag', name='filter_tag' ),
+    url( r'^source/(?P<source>.+)$', 'content.views.filter_source', name='filter_source' ),
+    url( r'^$', 'content.views.home', name="home" ),
 )
