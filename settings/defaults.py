@@ -117,14 +117,14 @@ PRODUCTION_MEDIA_URL = '/prodstatic/'
 
 MEDIA_BUNDLES = (
     ('channelfunnel.css',
-        'styles/channelfunnel.sass',
+        'styles/eurofunnel.sass',
         'styles/jquery-ui-1.8.16.custom.css',
     ),
     ('channelfunnel.js',
         'scripts/jquery-1.7.min.js',
         'scripts/jquery-ui-1.8.16.custom.js',
         'scripts/jquery.masonry.min.js',
-        'scripts/channelfunnel.js',
+        'scripts/eurofunnel.js',
         'scripts/jquery.infinitescroll.js',
     ),
 )

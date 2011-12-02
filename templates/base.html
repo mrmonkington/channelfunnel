@@ -6,13 +6,24 @@
         <title>Eurofunnel</title>
         <meta name="description" content="A big, tapering pipe of videogame news, reviews, videos and screenshots." />
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        {% include_media "eurofunnel.css" %}
-        {% include_media "eurofunnel.js" %}
+        {% include_media "channelfunnel.css" %}
+        {% include_media "channelfunnel.js" %}
     </head>
     <body>
         <div id="maincol">
             <h1>Eurofunnel</h1>
             <p class="strap">A big, tapering pipe of videogame news, reviews, videos and screenshots.</p>
+            <form method="GET" action="{% url search %}">
+                <input title="Search terms" name="term" id="term" type="text" value="{{ term|default:"keywords" }}" class="ui-widget empty" />
+                <button type="submit">Search</button>
+                <script>
+                    var cache = new Array();
+                    $("#term").autocomplete( {
+                        minLength: 2,
+                        source: "{% url search_autocomplete %}",
+                    } );
+                </script>
+            </form>
             {% block "content" %}
             {% endblock "content" %}
         </div>

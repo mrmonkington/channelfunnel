@@ -4,8 +4,9 @@ from django.core import serializers
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
-
+from django.core.urlresolvers import reverse
 from taggit.models import Tag
+import simplejson
 
 def click( request, article_id ):
     article = get_object_or_404( Article, pk = article_id, status = "live" )
@@ -39,3 +40,23 @@ def filter_tag( request, tag ):
     else:
         return render( request, "ajax_list.html", dictionary = { "article_list": articles, } )
     
+def search_autocomplete( request ):
+    term = request.GET.get( "term", "" )
+    tags = Tag.objects.filter( name__contains = term )
+    tags_resp = simplejson.dumps(
+        [
+            { 'value': tag.name, 'url': reverse( 'filter_tag', args = ( tag.slug, ) ) }
+            for tag in tags
+        ]
+    )
+    return HttpResponse( tags_resp )
+
+def search( request ):
+    offset = ( int( request.GET.get( "page", 1 )) - 1 ) * settings.PAGE_SIZE
+    term = request.GET.get( "term", "" )
+    articles = Article.objects.filter( tags__name__contains = term, status = "live", is_duplicate = False ).order_by( "-date_published" )[offset:offset+settings.PAGE_SIZE]
+    filter_title = "Showing articles tagged %s" % term
+    if not request.is_ajax():
+        return render( request, "full_list.html", dictionary = { "term": term, "filter_title": filter_title, "article_list": articles, } )
+    else:
+        return render( request, "ajax_list.html", dictionary = { "article_list": articles, } )
