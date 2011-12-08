@@ -8,7 +8,7 @@
             "description": "",
             "title": "Eurogamer.net",
             "scraper": "feedparser",
-            "scraper_config": "http://www.eurogamer.net/?format=rss"
+            "scraper_config": "http://www.eurogamer.net/?format=rss&type=news,screenshot-gallery,video"
         }
     },
     {
@@ -47,18 +47,18 @@
             "scraper_config": "vg247"
         }
     },
-    {
-        "pk": 5,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "kotaku",
-            "description": "",
-            "title": "Kotaku",
-            "scraper": "feedparser",
-            "scraper_config": "http://kotaku.com/index.xml"
-        }
-    },
+#    {
+#        "pk": 5,
+#        "model": "content.source",
+#        "fields": {
+#            "status": "live",
+#            "code": "kotaku",
+#            "description": "",
+#            "title": "Kotaku",
+#            "scraper": "feedparser",
+#            "scraper_config": "http://kotaku.com/index.xml"
+#        }
+#    },
     {
         "pk": 6,
         "model": "content.source",
@@ -80,7 +80,7 @@
             "description": "",
             "title": "GiantBomb",
             "scraper": "feedparser",
-            "scraper_config": "http://www.giantbomb.com/feeds/mashup/"
+            "scraper_config": "http://www.giantbomb.com/feeds/news/"
         }
     },
     {

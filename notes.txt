@@ -5,3 +5,8 @@ http://code.google.com/p/djapian/wiki/Tutorial
 http://xapian.org/docs/bindings/python/
 http://code.google.com/p/python-ngram/
 
+
+Approximate string matching:
+  http://en.wikipedia.org/wiki/Approximate_string_matching
+  http://en.wikipedia.org/wiki/Plagiarism_detection
+  http://www.nltk.org/
