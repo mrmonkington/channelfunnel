@@ -40,95 +40,23 @@
         "model": "content.source",
         "fields": {
             "status": "live",
+            "code": "rps",
+            "description": "",
+            "title": "Rock, Paper, Shotgun",
+            "scraper": "feedparser",
+            "scraper_config": "http://feeds.feedburner.com/RockPaperShotgun?format=xml"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "content.source",
+        "fields": {
+            "status": "live",
             "code": "twitter:vg247",
             "description": "VG247 Twittter feed",
             "title": "twitter.com/vg247",
             "scraper": "twitter",
             "scraper_config": "vg247"
-        }
-    },
-    {
-        "pk": 6,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "ign",
-            "description": "",
-            "title": "IGN",
-            "scraper": "feedparser",
-            "scraper_config": "http://feeds.ign.com/ignfeeds/games/?format=xml"
-        }
-    },
-    {
-        "pk": 7,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "giantbomb",
-            "description": "",
-            "title": "GiantBomb",
-            "scraper": "feedparser",
-            "scraper_config": "http://www.giantbomb.com/feeds/news/"
-        }
-    },
-    {
-        "pk": 8,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "joystiq",
-            "description": "",
-            "title": "Joystiq",
-            "scraper": "feedparser",
-            "scraper_config": "http://www.joystiq.com/rss.xml"
-        }
-    },
-    {
-        "pk": 9,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "1up",
-            "description": "",
-            "title": "1up",
-            "scraper": "feedparser",
-            "scraper_config": "http://www.1up.com/rss/latestUpdates?event=&platform="
-        }
-    },
-    {
-        "pk": 10,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "videogamer",
-            "description": "",
-            "title": "Videogamer",
-            "scraper": "feedparser",
-            "scraper_config": "http://feeds.videogamer.com/rss/allupdates.xml"
-        }
-    },
-    {
-        "pk": 11,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "n4g",
-            "description": "",
-            "title": "N4G",
-            "scraper": "feedparser",
-            "scraper_config": "http://n4g.com/rss/news?channel=&sort=latest"
-        }
-    },
-    {
-        "pk": 12,
-        "model": "content.source",
-        "fields": {
-            "status": "live",
-            "code": "siliconera",
-            "description": "",
-            "title": "Silicon Era",
-            "scraper": "feedparser",
-            "scraper_config": "http://feeds.feedburner.com/siliconera/MkOc?format=xml"
         }
     }
 ]

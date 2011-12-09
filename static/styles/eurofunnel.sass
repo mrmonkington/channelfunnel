@@ -4,7 +4,7 @@
 $blue : rgb( 0, 104, 255 )
 
 $text : #666
-$light_grey : #e8e8e8
+$light_grey : #f8f8f8
 $light_shadow : #f2f2f2
 $grey : #999
 $dark_grey: #666
@@ -29,30 +29,27 @@ $orange_shadow : rgb( 84, 71, 68 )
 $yellow_shadow : rgb( 84, 84, 68 )
 $green_shadow : rgb( 73, 84, 68 )
 
-$font : "Aurulent Sans", "Lucida Sans", "Lucida Grande", sans-serif
+$font : "DejaVu Sans", sans-serif
 
 body
     font-family: $font
-    font-size: 12px
+    font-size: 11px
     line-height: 1.4em
     color: $text
     background-color: $light_grey
     background: linear-gradient(top, #c6c6c6 0px,#e2e2e2 200px)
     margin: 0px
     padding: 0px
-    border-top: 6px solid $pink
 
 #maincol
     margin-left: 200px
     margin-right: 340px
     width: 450px - 20px * 2
     padding: 0px 20px
-    padding-top: 60px
-    border-top: 6px solid $blue
+    padding-top: 30px
     position: relative
-    top: -6px
     background-color: white
-    box-shadow: 0px 0px 12px rgba( 0, 0, 0, 0.2 )
+    box-shadow: 0px 0px 12px rgba( 0, 0, 0, 0.05 )
     padding-bottom: 100px
 
 h1, h2
@@ -119,7 +116,7 @@ a
         li
             h2, .summary, cite
             .summary
-                font-size: 13px
+                font-size: 11px
                 line-height: 20px 
                 margin-top: 14px
                 p
@@ -127,13 +124,15 @@ a
             cite
                 position: absolute
                 left: -160px
-                top: -45px
+                top: -31px
                 width: 140px
                 line-height: 14px 
                 strong, span
                 strong
                 span.date
                     font-size: 10px
+					display: block
+					margin-top: 1em
                 a
                     font-weight: bold
                     &:link
@@ -150,15 +149,16 @@ a
                 top: 0px
                 width: 300px
                 line-height: 20px 
+                font-size: 10px
                 a
                     &:link
-                        color: $pink
+                        color: $orange
                     &:visited
-                        color: $pink_light
+                        color: $orange_light
                     &:active
-                        color: $pink
+                        color: $orange
                     &:hover
-                        color: $pink
+                        color: $orange
 
 h3.filter
     font-size: 15px
