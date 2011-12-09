@@ -81,7 +81,7 @@ class Command( BaseCommand ):
             # simple stop words
             s = re.sub( r"\b(the|of|in|a)\b", "", s, re.IGNORECASE )
             # type prefixes
-            s = re.sub( r"^(trailer|review|report):\s*", "", s, re.IGNORECASE )
+            s = re.sub( r"^(trailer|review|report|screenshots):\s*", "", s, re.IGNORECASE )
             return s
         n = NGram( warp=2.5, iconv=enrich )
         articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:(new_count*4)]
@@ -90,14 +90,20 @@ class Command( BaseCommand ):
         #for article in articles:
             print( u"similarity for %s" % ( article.title, ) )
             sim = filter( lambda a: a[1] > 0.4, n.search( article.title ) )
-            if len( sim ) > 0:
-                nearest = sim[0][0]
+            for match in sim:
+                nearest = match[0]
+                if nearest.source == article.source:
+                    continue
                 if nearest.is_duplicate:
                     nearest = nearest.duplicate_of
+                # do it again!
+                if nearest.source == article.source:
+                    continue
                 article.is_duplicate = True
                 article.duplicate_of = nearest
                 print u" is duplicate of %s" % ( nearest.title, )
                 article.save()
+                break
             n.add( article )
 
 

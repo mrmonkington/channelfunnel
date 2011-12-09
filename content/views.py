@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, Htt
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from taggit.models import Tag
-import simplejson
+import json
 
 def click( request, article_id ):
     article = get_object_or_404( Article, pk = article_id, status = "live" )
@@ -43,7 +43,7 @@ def filter_tag( request, tag ):
 def search_autocomplete( request ):
     term = request.GET.get( "term", "" )
     tags = Tag.objects.filter( name__contains = term )
-    tags_resp = simplejson.dumps(
+    tags_resp = json.dumps(
         [
             { 'value': tag.name, 'url': reverse( 'filter_tag', args = ( tag.slug, ) ) }
             for tag in tags

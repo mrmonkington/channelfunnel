@@ -6,10 +6,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #'NAME': os.path.join(SITE_ROOT, 'channelfunnel.sqlite'),
-        'NAME': 'eurofunnel',
-        'USER': 'mark',
+        'NAME': 'funnel',
+        'USER': 'funnel',
         'PASSWORD': '',
-        'HOST': '',
+        'HOST': 'omar',
         'PORT': '',
     }
 }
@@ -108,7 +108,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'taggit',
-    'content',
+    'channelfunnel.content',
 )
 
 MEDIA_DEV_MODE = False
