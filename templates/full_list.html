@@ -6,7 +6,7 @@
             <h3 class="filter">{{ filter_title }} (<a href="{% url home %}">Show all</a>)</h3>
         {% endif %}
         <ul>
-        {% if articles %}
+        {% if article_list %}
             {% include "list.html" %}
         {% else %}
             <li>
