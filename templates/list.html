@@ -1,16 +1,21 @@
 {% block "list" %}
     {% for article in article_list %}
         <li class="master {% if article.duplicates.all %}multi{% endif %}">
-            <h2><a data-alt-href="{% url click article.pk %}" href="{{ article.source_url }}">{{ article.title }}</a></h2>
+            <h2><a data-alt-href="{% url click article.pk %}" target="_blank" href="{{ article.source_url }}">{{ article.title|safe }}</a></h2>
+            <cite>
+                <a target="_blank" href="{% url filter_source article.source.code %}">{{ article.source.title|safe }}</a>
+                <br />
+                <span class="date" title="{{ article.date_published }} GMT">{{ article.date_published|timesince:utcnow }} ago </span>
+            </cite>
             <div class="wrap">
                 <div class="summary">
                     {{ article.summary|safe|striptags|truncatewords:60|linebreaks }}
                 </div>
-                <cite>
-                    <a href="{% url filter_source article.source.code %}">{{ article.source.title|safe }}</a>
-                    <br />
-                    <span class="date">{{ article.date_published }}</span>
-                </cite>
+            </div>
+            <div class="meta">
+				<p>
+					<date>{{ article.date_published }} GMT</date>
+				</p>
                 <div class="tags">
                     {% for tag in article.tags.all %}
                         <a href="{% url filter_tag tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}

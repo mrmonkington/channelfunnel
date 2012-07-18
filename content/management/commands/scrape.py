@@ -39,7 +39,7 @@ class Command( BaseCommand ):
                        ok = False
                 if ok:
                     for article in l[ "entries" ]:
-                        print "Reading feed entry %s: '%s'" % ( article[ "id" ], article[ "title" ] )
+                        #print "Reading feed entry %s: '%s'" % ( article[ "id" ], article[ "title" ] )
                         a, created = Article.objects.get_or_create(
                             source = source,
                             # Wordpress RSS IDs are unique internet-wide, and are immutable (unlike URLs)
@@ -56,9 +56,11 @@ class Command( BaseCommand ):
                             }
                         )
                         if created:
-                            print "Creating new article."
+                            #print "Creating new article."
+                            pass
                         else:
-                            print "Updating article."
+                            #print "Updating article."
+                            pass
                         new_count += 1
                         if article.has_key( "content" ):
                             # TODO test for multiple content blocks and pick most appropriate
@@ -88,7 +90,7 @@ class Command( BaseCommand ):
         for article in articles:
         #articles = Article.objects.filter( status = "live", is_duplicate = False ).order_by( "-date_published" )[:new_count]
         #for article in articles:
-            print( u"similarity for %s" % ( article.title, ) )
+            #print( u"similarity for %s" % ( article.title, ) )
             sim = filter( lambda a: a[1] > 0.4, n.search( article.title ) )
             for match in sim:
                 nearest = match[0]
@@ -101,7 +103,7 @@ class Command( BaseCommand ):
                     continue
                 article.is_duplicate = True
                 article.duplicate_of = nearest
-                print u" is duplicate of %s" % ( nearest.title, )
+                #print u" is duplicate of %s" % ( nearest.title, )
                 article.save()
                 break
             n.add( article )
