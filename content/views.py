@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from taggit.models import Tag
 import json
+import re
+
+from ngram import NGram
 
 def click( request, article_id ):
     article = get_object_or_404( Article, pk = article_id, status = "live" )
@@ -19,6 +22,44 @@ def home( request ):
         return render( request, "full_list.html", dictionary = { "article_list": articles, } )
     else:
         return render( request, "ajax_list.html", dictionary = { "article_list": articles, } )
+
+def enrich( obj ):
+    s = unicode( obj )
+    # simple stop words
+    s = re.sub( r"\b(the|of|in|a)\b", "", s, re.IGNORECASE )
+    # type prefixes
+    s = re.sub( r"^(trailer|review|report|screenshots|video):\s*", "", s, re.IGNORECASE )
+    return s
+
+def simtitle( request ):
+    """calculate similarity based on title and naive threshold"""
+    n = NGram( warp=2.5, iconv=enrich )
+    articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:1000]
+    results = []
+    for article in articles:
+        article.is_duplicate = False
+        article.duplicate_of = None
+        article.save()
+        sim = filter( lambda a: a[1] >= 0.7, n.search( article.title ) )
+        for match in sim:
+            nearest = match[0]
+            if nearest.is_duplicate:
+                nearest = nearest.duplicate_of
+                if NGram.compare( article.title, nearest.title ) < 0.7:
+                    results.append( article )
+                    break
+            article.is_duplicate = True
+            article.duplicate_of = nearest
+            article.save()
+            break
+        else:
+            results.append( article )
+        n.add( article )
+    return render( request, "dump.html", dictionary = { "article_list": results, } )
+
+def simsummary( request ):
+    articles = Article.objects.filter( status = "live", is_duplicate = False ).order_by( "title" )
+    return render( request, "dump.html", dictionary = { "article_list": articles, } )
     
 def filter_source( request, source ):
     offset = ( int( request.GET.get( "page", 1 )) - 1 ) * settings.PAGE_SIZE

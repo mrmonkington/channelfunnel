@@ -1,0 +1,47 @@
+{% extends "plain.html" %}
+
+{% block "content" %}
+    <div class="articles">
+        {% if filter_title %}
+            <h3 class="filter">{{ filter_title }} (<a href="{% url home %}">Show all</a>)</h3>
+        {% endif %}
+        <ul>
+        {% if article_list %}
+            {% block "list" %}
+                {% for article in article_list %}
+                    <li class="master {% if article.duplicates.all %}multi{% endif %}">
+                        <a data-alt-href="{% url click article.pk %}" href="{{ article.source_url }}">{{ article.title|safe }}</a>
+                        {% if article.duplicates.all %}
+                            <ul>
+                            {% for dup in article.duplicates.all %}
+                                <li>
+                                    <a href="{{ dup.source_url }}">{{ dup.title|safe }}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            {% endblock %}
+        {% else %}
+            <li>
+                Sorry nothing found!
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+    <script>
+    /*$('.articles ul').masonry({
+        itemSelector: 'li.master',
+        columnWidth: 316,
+        isAnimated: true
+    });*/
+    $(window).infinitescroll({
+        url: window.location.href,
+        triggerAt: 150,
+        appendTo: '.articles>ul',
+        container: $('.articles>ul')
+    });
+    relateds = $('.articles ul li.master ul' );
+    </script>
+{% endblock "content" %}

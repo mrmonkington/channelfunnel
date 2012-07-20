@@ -38,6 +38,7 @@ class Article( models.Model ):
     ) )
     is_duplicate = models.BooleanField( default = False, null = False )
     duplicate_of = models.ForeignKey( "Article", blank = True, null = True, related_name = "duplicates" )
+    duplicate_simscore = models.FloatField( blank = True, null = True )
     date_created = models.DateTimeField( blank = False )
 
     # unique ID as defined by source - for updates

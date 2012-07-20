@@ -22,5 +22,7 @@ urlpatterns = patterns('',
     url( r'^source/(?P<source>.+)$', 'channelfunnel.content.views.filter_source', name='filter_source' ),
     url( r'^search_autocomplete/$', 'channelfunnel.content.views.search_autocomplete', name='search_autocomplete' ),
     url( r'^search/$', 'channelfunnel.content.views.search', name='search' ),
+    url( r'^simtitle/$', 'channelfunnel.content.views.simtitle', name='simtitle' ),
+    url( r'^simsummary/$', 'channelfunnel.content.views.simsummary', name='simsummary' ),
     url( r'^$', 'channelfunnel.content.views.home', name="home" ),
 )

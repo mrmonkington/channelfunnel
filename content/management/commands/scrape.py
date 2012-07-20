@@ -28,7 +28,7 @@ class Command( BaseCommand ):
 
     def handle( self, *args, **options ):
         if "simonly" in args:
-            new_count = 200
+            new_count = 100000
         else:
             new_count = 0
             for source in Source.objects.filter( scraper = 'feedparser', status__in = ( 'silent', 'live' ) ):
@@ -81,11 +81,16 @@ class Command( BaseCommand ):
             # simple stop words
             s = re.sub( r"\b(the|of|in|a)\b", "", s, re.IGNORECASE )
             # type prefixes
-            s = re.sub( r"^(trailer|review|report|screenshots):\s*", "", s, re.IGNORECASE )
+            s = re.sub( r"^(trailer|review|report|screenshots|video):\s*", "", s, re.IGNORECASE )
             return s
         n = NGram( warp=2.5, iconv=enrich )
         articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:(new_count*4)]
         for article in articles:
+            if "simonly" in args:
+                article.is_duplicate = False
+                article.duplicate_of = None
+                article.save()
+                continue
         #articles = Article.objects.filter( status = "live", is_duplicate = False ).order_by( "-date_published" )[:new_count]
         #for article in articles:
             print( u"similarity for %s" % ( article.title, ) )
