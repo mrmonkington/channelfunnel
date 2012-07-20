@@ -2,6 +2,8 @@ import os
 # get project root, not settings folder root!
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
+USE_TZ = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -9,7 +11,7 @@ DATABASES = {
         'NAME': 'funnel',
         'USER': 'funnel',
         'PASSWORD': '',
-        'HOST': 'omar',
+        'HOST': 'search.db',
         'PORT': '',
     }
 }
@@ -111,7 +113,7 @@ INSTALLED_APPS = (
     'channelfunnel.content',
 )
 
-MEDIA_DEV_MODE = False
+MEDIA_DEV_MODE = True
 DEV_MEDIA_URL = '/devstatic/'
 PRODUCTION_MEDIA_URL = '/prodstatic/'
 
@@ -132,3 +134,13 @@ MEDIA_BUNDLES = (
 GLOBAL_MEDIA_DIRS = ( os.path.join(SITE_ROOT, 'static' ), )
 
 PAGE_SIZE = 20
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    #"django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+    "channelfunnel.content.context_processors.utcnow"
+)

@@ -24,5 +24,6 @@ urlpatterns = patterns('',
     url( r'^search/$', 'channelfunnel.content.views.search', name='search' ),
     url( r'^simtitle/$', 'channelfunnel.content.views.simtitle', name='simtitle' ),
     url( r'^simsummary/$', 'channelfunnel.content.views.simsummary', name='simsummary' ),
+    url( r'^new/(?P<since>.+)$', 'channelfunnel.content.views.new', name="new" ),
     url( r'^$', 'channelfunnel.content.views.home', name="home" ),
 )

@@ -4,7 +4,7 @@
 $blue : rgb( 0, 104, 255 )
 
 $text : #666
-$light_grey : #f8f8f8
+$light_grey : #f3f3f3
 $light_shadow : #f2f2f2
 $grey : #999
 $dark_grey: #666
@@ -29,14 +29,14 @@ $orange_shadow : rgb( 84, 71, 68 )
 $yellow_shadow : rgb( 84, 84, 68 )
 $green_shadow : rgb( 73, 84, 68 )
 
-$font : "DejaVu Sans", "Verdana", sans-serif
+$font : "Open Sans", "DejaVu Sans", "Verdana", sans-serif
 
 body
     font-family: $font
-    font-size: 11px
+    font-size: 13px
     line-height: 1.4em
     color: $text
-    background-color: $light_grey
+    background-color: $light_grey * 0.98
     background: linear-gradient(top, #c6c6c6 0px,#e2e2e2 200px)
     margin: 0px
     padding: 0px
@@ -44,13 +44,14 @@ body
 #maincol
     margin-left: 200px
     margin-right: 340px
-    width: 450px - 20px * 2
-    padding: 0px 20px
+    width: 750px 
+    padding: 0px 0px
     padding-top: 30px
     position: relative
-    background-color: white
+    background-color: $light_grey
     box-shadow: 0px 0px 12px rgba( 0, 0, 0, 0.05 )
     padding-bottom: 100px
+    float: left
 
 h1, h2
     font-family: $font
@@ -64,8 +65,9 @@ ul, li, p, h1, h2, h3, h4, cite
     padding: 0px
 
 h1
-    font-size: 25px
-    margin-bottom: 10px
+    font-size: 23px
+    margin-bottom: 40px
+    margin-left: 20px
 .strap
     font-size: 10px
     margin-bottom: 20px
@@ -75,10 +77,10 @@ h2
     line-height: 1.3em
 
 h3
-    font-size: 11px
+    font-size: 13px
 
 h4
-    font-size: 11px
+    font-size: 13px
 
 a
     text-decoration: none
@@ -95,12 +97,20 @@ a
 .articles
     ul
         > li.master
-            margin: 14px 0px
-            margin-bottom: 28px
+            padding: 14px 20px
+            float: left
+            padding-bottom: 14px
             position: relative
             clear: both
+            width: 750px - 20px * 2
             > .wrap
                 position: relative
+            .meta
+                display: none
+        > li.master.ui-selected
+            //background-color: #ffffff
+        > li.master:hover
+            background-color: $light_grey * 1.02
         > li.multi.master
             ul
                 //position: absolute
@@ -109,14 +119,12 @@ a
                 float: left
                 margin-bottom: 20px
                 li
-                    width: 180px
-                    float: left
                     margin-right: 10px
 
         li
             h2, .summary, cite
             .summary
-                font-size: 11px
+                font-size: 13px
                 line-height: 20px 
                 margin-top: 14px
                 p
@@ -124,7 +132,7 @@ a
             cite
                 position: absolute
                 left: -170px
-                top: 0px
+                top: 15px
                 width: 140px
                 line-height: 20px 
                 strong, span
@@ -134,29 +142,30 @@ a
                 a
                     font-weight: bold
                     &:link
-                        color: $green
+                        color: $grey
                     &:visited
-                        color: $green_light
+                        color: $grey
                     &:active
-                        color: $green
+                        color: $grey
                     &:hover
-                        color: $green
+                        color: $grey
             .tags
-                position: absolute
-                left: 443px
-                top: 0px
-                width: 300px
                 line-height: 20px 
                 font-size: 10px
                 a
                     &:link
-                        color: $orange
+                        color: $green
                     &:visited
-                        color: $orange_light
+                        color: $green
                     &:active
-                        color: $orange
+                        color: $green
                     &:hover
-                        color: $orange
+                        color: $green
 
 h3.filter
     font-size: 15px
+
+#search
+    position: absolute
+    top: 24px
+    right: 10px

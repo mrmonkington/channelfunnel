@@ -10,6 +10,8 @@ import json
 import re
 
 from ngram import NGram
+import datetime
+import time
 
 def click( request, article_id ):
     article = get_object_or_404( Article, pk = article_id, status = "live" )
@@ -60,6 +62,16 @@ def simtitle( request ):
 def simsummary( request ):
     articles = Article.objects.filter( status = "live", is_duplicate = False ).order_by( "title" )
     return render( request, "dump.html", dictionary = { "article_list": articles, } )
+
+def new( request, since ):
+    since = int( since );
+    if since > 0:
+        since = datetime.datetime.fromtimestamp( since );
+        # limit to prevent DOSing
+        articles = Article.objects.filter( status = "live", is_duplicate = False, date_published__gt = since ).order_by( "-date_published" )[:100]
+        if settings.DEBUG or request.is_ajax():
+            return render( request, "ajax_list.html", dictionary = { "article_list": articles, } )
+    return HttpResponse("")
     
 def filter_source( request, source ):
     offset = ( int( request.GET.get( "page", 1 )) - 1 ) * settings.PAGE_SIZE

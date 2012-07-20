@@ -28,5 +28,38 @@
         container: $('.articles>ul')
     });
     relateds = $('.articles ul li.master ul' );
+
+	$('.articles ul').selectable({
+		filter : 'li.master',
+		delay: 0,
+		autoRefresh: false,
+		cancel: 'a',
+		selected: function(event, ui) {
+			$( ui.selected ).animate( { backgroundColor: '#ffffff' }, 200 );
+			$( ".meta", ui.selected ).slideDown( 200 );
+		},
+		unselected: function(event, ui) {
+			$( ui.unselected ).animate( { backgroundColor: '#f8f8f8' }, 200 );
+			$( ".meta", ui.unselected ).slideUp( 200 );
+		},
+	} );
+
+	var last_update = parseInt( new Date().getTime() / 1000 );
+	setInterval( function() {
+		$.ajax( {
+			url: '/new/' + last_update,
+			processData: true
+		} ).done( function( data ){
+			if( data.replace(/^\s+|\s+$/g, "") != "" ) {
+				new_items = $( data );
+				new_items.stop().css("background-color", "#FFFF9C").delay(2000).animate({ backgroundColor: "#FFFFFF"}, 3000);
+				$('.articles>ul').prepend( new_items )
+				$('html, body').animate({scrollTop: $('body').offset().top}, 1000);
+				$('.articles ul').selectable("refresh");
+			}
+		} );
+		// set date async from request - better to have dupes than miss content due to slow response
+		last_update = parseInt( new Date().getTime() / 1000 );
+	}, 20000 );
     </script>
 {% endblock "content" %}
