@@ -51,7 +51,7 @@ class Command( BaseCommand ):
                                 'num_comments' : article.get( "slash_comments", 0 ),
                                 'summary' : article[ "summary" ],
                                 'author' : article.get( "author", "" ),
-                                'date_published' : datetime(*(article[ "date_parsed" ][:6])),
+                                'date_published' : datetime(*(article[ "updated_parsed" ][:6])),
                                 'status' : "live"
                             }
                         )
