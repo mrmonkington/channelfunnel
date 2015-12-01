@@ -35,14 +35,14 @@ def enrich( obj ):
 
 def simtitle( request ):
     """calculate similarity based on title and naive threshold"""
-    n = NGram( warp=2.5, iconv=enrich )
+    n = NGram( warp=2.5, iconv=enrich, key=lambda x: x.title )
     articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:1000]
     results = []
     for article in articles:
         article.is_duplicate = False
         article.duplicate_of = None
         article.save()
-        sim = filter( lambda a: a[1] >= 0.7, n.search( article.title ) )
+        sim = filter( lambda a: a[1] >= 0.4, n.search( article.title ) )
         for match in sim:
             nearest = match[0]
             if nearest.is_duplicate:

@@ -85,7 +85,7 @@ class Command( BaseCommand ):
             # type prefixes
             s = re.sub( r"^(trailer|review|report|screenshots|video):\s*", "", s, re.IGNORECASE )
             return s
-        n = NGram( warp=2.5, iconv=enrich )
+        n = NGram( warp=2.5, iconv=enrich, key=lambda x: x.title )
         articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:(new_count*4)]
         for article in articles:
             if "simonly" in args:
