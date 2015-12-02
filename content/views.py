@@ -15,6 +15,9 @@ from ngram import NGram
 import datetime
 import time
 
+import unicodedata
+import sys
+
 def longest_common_substring(s1, s2):
     m = [[0] * (1 + len(s2)) for i in xrange(1 + len(s1))]
     longest, x_longest = 0, 0
@@ -28,6 +31,30 @@ def longest_common_substring(s1, s2):
             else:
                 m[x][y] = 0
     return s1[x_longest - longest: x_longest]
+
+tbl = dict.fromkeys(
+    i for i in xrange(sys.maxunicode)
+    if unicodedata.category(unichr(i)).startswith('P')
+)
+
+def common_terms( ss ):
+    ts = None
+    ordering = None
+    for s in ss:
+        l = s.lower().translate(tbl).split()
+        st = set(l)
+        if ts != None:
+            ordering = l
+            ts = ts & st
+        else:
+            ts = st
+
+    print ts
+    print ordering
+    op = sorted(list(ts), key = lambda k : ordering.index(k))
+    if len(op) == 0:
+        return "<no topic - possibly a duff group>"
+    return " ".join( op )
 
 def click( request, article_id ):
     article = get_object_or_404( Article, pk = article_id, status = "live" )
@@ -84,7 +111,7 @@ def clustertitle( request ):
     def sim( a, b ):
         return 1 - NGram.compare( a.title, b.title, warp=WARP, iconv=enrich )
 
-    articles = Article.objects.filter( status = "live", date_published__gte = datetime.datetime.now().date() ).order_by( "date_published" )[:]
+    articles = Article.objects.filter( status = "live", date_published__gte = datetime.datetime.now() - datetime.timedelta(1) ).order_by( "date_published" )[:1000]
     cl = HierarchicalClustering(articles, sim)
     # 0.7 chosen pretty much through trial and error :)
     res = cl.getlevel(0.7)
@@ -96,7 +123,8 @@ def clustertitle( request ):
         if len(cluster) > 1:
             node = {
                     'type': 'cluster',
-                    'topic': longest_common_substring(cluster[0].title, cluster[1].title),
+                    #'topic': longest_common_substring(cluster[0].title, cluster[1].title),
+                    'topic': common_terms( [a.title for a in cluster] ),
                     'articles': cluster
                     }
         else:
