@@ -1,0 +1,35 @@
+{% extends "plain.html" %}
+
+{% block "content" %}
+    <div class="articles">
+        {% if clusters %}
+            {% block "list" %}
+                {% for cluster in clusters %}
+                    {% if cluster.type == "cluster" %} 
+                    <li class="master">
+                      <h3>{{ cluster.topic }}</h3>
+                            <ul>
+                            {% for article in cluster.articles %}
+                                <li>
+                                <a href="{{ article.source_url }}">{{ article.title|safe }}</a> - {{ article.source.code }}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </li>
+                    {% else %}
+                        {% with cluster.article as article %}
+                            <li class="master">
+                                <a href="{{ article.source_url }}">{{ article.title|safe }}</a - {{ article.source.code }}>
+                            </li>
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            {% endblock %}
+        {% else %}
+            <li>
+                Sorry nothing found!
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+{% endblock "content" %}

@@ -9,9 +9,25 @@ from taggit.models import Tag
 import json
 import re
 
+WARP = 2.5
+
 from ngram import NGram
 import datetime
 import time
+
+def longest_common_substring(s1, s2):
+    m = [[0] * (1 + len(s2)) for i in xrange(1 + len(s1))]
+    longest, x_longest = 0, 0
+    for x in xrange(1, 1 + len(s1)):
+        for y in xrange(1, 1 + len(s2)):
+            if s1[x - 1] == s2[y - 1]:
+                m[x][y] = m[x - 1][y - 1] + 1
+                if m[x][y] > longest:
+                    longest = m[x][y]
+                    x_longest = x
+            else:
+                m[x][y] = 0
+    return s1[x_longest - longest: x_longest]
 
 def click( request, article_id ):
     article = get_object_or_404( Article, pk = article_id, status = "live" )
@@ -30,12 +46,13 @@ def enrich( obj ):
     # simple stop words
     s = re.sub( r"\b(the|of|in|a)\b", "", s, re.IGNORECASE )
     # type prefixes
-    s = re.sub( r"^(trailer|review|report|screenshots|video):\s*", "", s, re.IGNORECASE )
+    s = re.sub( r"^(trailer|review|report|screenshots|video|watch):\s*", "", s, re.IGNORECASE )
+    s = re.sub( r"\[update\]\s*$", "", s, re.IGNORECASE )
     return s
 
 def simtitle( request ):
     """calculate similarity based on title and naive threshold"""
-    n = NGram( warp=2.5, iconv=enrich, key=lambda x: x.title )
+    n = NGram( warp=WARP, iconv=enrich, key=lambda x: x.title )
     articles = Article.objects.filter( status = "live" ).order_by( "date_published" )[:1000]
     results = []
     for article in articles:
@@ -58,6 +75,38 @@ def simtitle( request ):
             results.append( article )
         n.add( article )
     return render( request, "dump.html", dictionary = { "article_list": results, } )
+
+def clustertitle( request ):
+    """cluster based on title and ngram sim"""
+
+    from cluster import HierarchicalClustering
+
+    def sim( a, b ):
+        return 1 - NGram.compare( a.title, b.title, warp=WARP, iconv=enrich )
+
+    articles = Article.objects.filter( status = "live", date_published__gte = datetime.datetime.now().date() ).order_by( "date_published" )[:]
+    cl = HierarchicalClustering(articles, sim)
+    # 0.7 chosen pretty much through trial and error :)
+    res = cl.getlevel(0.7)
+    #import pprint
+    #pprint.pprint( cl.topo() )
+
+    clusters = []
+    for cluster in res:
+        if len(cluster) > 1:
+            node = {
+                    'type': 'cluster',
+                    'topic': longest_common_substring(cluster[0].title, cluster[1].title),
+                    'articles': cluster
+                    }
+        else:
+            node = {
+                    'type': 'article',
+                    'article': cluster[0]
+            }
+        clusters.append(node)
+
+    return render( request, "clusters.html", dictionary = { "clusters": clusters, } )
 
 def simsummary( request ):
     articles = Article.objects.filter( status = "live", is_duplicate = False ).order_by( "title" )
